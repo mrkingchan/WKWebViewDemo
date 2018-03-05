@@ -47,10 +47,9 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     //拦截到js的调用参数
-    _context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    _context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];  //获取js上下文
     //iOS吊起JS函数
     [_context evaluateScript:@"alert('I AM A SEXY GUY!')"];
-    
     //拦截js的调用函数
     _context[@"function1"] = ^ (NSString *param1,NSString *param2) {
         NSArray *argus = [JSContext currentArguments];
@@ -59,6 +58,7 @@
         }
     };
     [_context  evaluateScript:@"function1('1111','2222')"];
+    
 
     _context[@"function2"] = ^ (NSString *param1,NSString *param2) {
         NSArray *paramArray = [JSContext currentArguments];
@@ -67,7 +67,6 @@
         }
     };
     [_context evaluateScript:@"function2('Chan1111','Chan2222')"];
-
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
