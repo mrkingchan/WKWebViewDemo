@@ -15,6 +15,7 @@
 		8FC2A0922047EA1400B36725 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0912047EA1400B36725 /* main.m */; };
 		8FC2A09C2047EA1400B36725 /* WKWebViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A09B2047EA1400B36725 /* WKWebViewDemoTests.m */; };
 		8FC2A0A72047EA1400B36725 /* WKWebViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0A62047EA1400B36725 /* WKWebViewDemoUITests.m */; };
+		8FC2A0BC20492D1400B36725 /* XLWeakScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0BB20492D1400B36725 /* XLWeakScriptMessageDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,9 @@
 		8FC2A0A22047EA1400B36725 /* WKWebViewDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WKWebViewDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC2A0A62047EA1400B36725 /* WKWebViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewDemoUITests.m; sourceTree = "<group>"; };
 		8FC2A0A82047EA1400B36725 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FC2A0BA20492D1400B36725 /* XLWeakScriptMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLWeakScriptMessageDelegate.h; sourceTree = "<group>"; };
+		8FC2A0BB20492D1400B36725 /* XLWeakScriptMessageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLWeakScriptMessageDelegate.m; sourceTree = "<group>"; };
+		8FC2A0C6204D16CA00B36725 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +109,14 @@
 				8FC2A0832047EA1300B36725 /* AppDelegate.m */,
 				8FC2A0852047EA1300B36725 /* ViewController.h */,
 				8FC2A0862047EA1400B36725 /* ViewController.m */,
+				8FC2A0C6204D16CA00B36725 /* PrefixHeader.pch */,
 				8FC2A0882047EA1400B36725 /* Main.storyboard */,
 				8FC2A08B2047EA1400B36725 /* Assets.xcassets */,
 				8FC2A08D2047EA1400B36725 /* LaunchScreen.storyboard */,
 				8FC2A0902047EA1400B36725 /* Info.plist */,
 				8FC2A0912047EA1400B36725 /* main.m */,
+				8FC2A0BA20492D1400B36725 /* XLWeakScriptMessageDelegate.h */,
+				8FC2A0BB20492D1400B36725 /* XLWeakScriptMessageDelegate.m */,
 			);
 			path = WKWebViewDemo;
 			sourceTree = "<group>";
@@ -266,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FC2A0872047EA1400B36725 /* ViewController.m in Sources */,
+				8FC2A0BC20492D1400B36725 /* XLWeakScriptMessageDelegate.m in Sources */,
 				8FC2A0922047EA1400B36725 /* main.m in Sources */,
 				8FC2A0842047EA1300B36725 /* AppDelegate.m in Sources */,
 			);
@@ -432,6 +440,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3WGXX8M8S;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/WKWebViewDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = WKWebViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianft.WKWebViewDemo;
@@ -446,6 +456,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3WGXX8M8S;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/WKWebViewDemo/PrefixHeader.pch";
 				INFOPLIST_FILE = WKWebViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qianft.WKWebViewDemo;
