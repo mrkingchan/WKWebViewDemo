@@ -16,6 +16,7 @@
 		8FC2A09C2047EA1400B36725 /* WKWebViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A09B2047EA1400B36725 /* WKWebViewDemoTests.m */; };
 		8FC2A0A72047EA1400B36725 /* WKWebViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0A62047EA1400B36725 /* WKWebViewDemoUITests.m */; };
 		8FC2A0BC20492D1400B36725 /* XLWeakScriptMessageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0BB20492D1400B36725 /* XLWeakScriptMessageDelegate.m */; };
+		8FC2A0C9204D471300B36725 /* URLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0C8204D471300B36725 /* URLProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		8FC2A0BA20492D1400B36725 /* XLWeakScriptMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XLWeakScriptMessageDelegate.h; sourceTree = "<group>"; };
 		8FC2A0BB20492D1400B36725 /* XLWeakScriptMessageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XLWeakScriptMessageDelegate.m; sourceTree = "<group>"; };
 		8FC2A0C6204D16CA00B36725 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		8FC2A0C7204D471300B36725 /* URLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLProtocol.h; sourceTree = "<group>"; };
+		8FC2A0C8204D471300B36725 /* URLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 				8FC2A0832047EA1300B36725 /* AppDelegate.m */,
 				8FC2A0852047EA1300B36725 /* ViewController.h */,
 				8FC2A0862047EA1400B36725 /* ViewController.m */,
+				8FC2A0C7204D471300B36725 /* URLProtocol.h */,
+				8FC2A0C8204D471300B36725 /* URLProtocol.m */,
 				8FC2A0C6204D16CA00B36725 /* PrefixHeader.pch */,
 				8FC2A0882047EA1400B36725 /* Main.storyboard */,
 				8FC2A08B2047EA1400B36725 /* Assets.xcassets */,
@@ -273,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FC2A0872047EA1400B36725 /* ViewController.m in Sources */,
+				8FC2A0C9204D471300B36725 /* URLProtocol.m in Sources */,
 				8FC2A0BC20492D1400B36725 /* XLWeakScriptMessageDelegate.m in Sources */,
 				8FC2A0922047EA1400B36725 /* main.m in Sources */,
 				8FC2A0842047EA1300B36725 /* AppDelegate.m in Sources */,
