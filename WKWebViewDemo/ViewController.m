@@ -33,16 +33,16 @@
     _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) configuration:_configuration];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = self;
-//    [self.view addSubview:_webView];
+    [self.view addSubview:_webView];
     //加载网页
     NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.2.134:8018/Home/Page1"]];
     //添加请求头信息
-    [_webView  loadRequest:requesst];
+    /*[_webView  loadRequest:requesst];
     
     UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     webView.delegate = self;
     [webView loadRequest:requesst];
-    [self.view addSubview:webView];
+    [self.view addSubview:webView];*/
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

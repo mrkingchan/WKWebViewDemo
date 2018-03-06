@@ -18,5 +18,6 @@
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request;
 
+@property(nonatomic,strong)NSMutableData *recieveData;
 
 @end

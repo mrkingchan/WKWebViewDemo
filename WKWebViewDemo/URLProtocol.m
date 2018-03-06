@@ -37,6 +37,7 @@
 
 #pragma mark  -- 开始加载
 - (void)startLoading {
+    _recieveData = [NSMutableData new];
     NSMutableURLRequest *request = [[self request] mutableCopy];
     [NSURLProtocol setProperty:@(YES) forKey:NSStringFromClass([self class]) inRequest:request];
     if ([UIDevice currentDevice].systemVersion.floatValue >=7.0) {
@@ -68,6 +69,7 @@
 
 ////接收到数据（可能调用多次）
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [_recieveData appendData:data];
     [self.client  URLProtocol:self didLoadData:data];
 }
 
@@ -98,6 +100,12 @@
 
 ///接收到数据（可能调用多次）
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+    [_recieveData appendData:data];
+    
+    id json = [NSJSONSerialization JSONObjectWithData:_recieveData
+                                              options:kNilOptions
+                                                error:nil];
+    NSLog(@"json = %@ -- jsonStr = %@",json,[[NSString alloc] initWithData:_recieveData encoding:NSUTF8StringEncoding]);
     [self.client  URLProtocol:self didLoadData:data];
 }
 
@@ -116,5 +124,7 @@
         [self.client  URLProtocol:self didFailWithError:error];
     }
 }
+
+
 
 @end
