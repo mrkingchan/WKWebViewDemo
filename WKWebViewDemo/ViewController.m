@@ -109,6 +109,7 @@
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    //针对wkwebView的请求体被清空的问题 现在目前为止还没寻求到解决方案，待解决.在UIwebView中请求体中的信息在进行post请求的时候是不会被丢失的
     NSString *bodyStr =   [[NSString  alloc] initWithData:navigationAction.request.HTTPBody encoding:NSUTF8StringEncoding];
     NSLog(@"bodyStr = %@",bodyStr);
 
