@@ -13,10 +13,8 @@
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
-    
     //在这里可以自定义追加一些请求头信息
     [mutableRequest setValue:@"Chan" forHTTPHeaderField:@"token"];
-    
     return mutableRequest;
 }
 
@@ -31,11 +29,14 @@
         } else {
             return YES;
         }
+    } else if ([schme isEqualToString:@"POST"]) {
+        //POST请求
+        return YES;
     }
     return YES;
 }
 
-#pragma mark  -- 开始加载
+#pragma mark  -- startLoad
 - (void)startLoading {
     _recieveData = [NSMutableData new];
     NSMutableURLRequest *request = [[self request] mutableCopy];
@@ -50,6 +51,7 @@
     }
 }
 
+#pragma mark  -- stopLoad
 - (void)stopLoading {
     if (_task) {
         [_task cancel];

@@ -24,6 +24,7 @@
 
 #pragma mark  -- lifeCircle
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     //webView初始化
     _configuration = [WKWebViewConfiguration new];
@@ -35,10 +36,18 @@
     _webView.navigationDelegate = self;
     [self.view addSubview:_webView];
     //加载网页
-    NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.2.134:8018/Home/Page1"]];
-    //添加请求头信息
-    /*[_webView  loadRequest:requesst];
+    NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+    requesst.HTTPMethod = @"GET";
+    NSDictionary *dic = @{@"data1":@"data1",@"data2":@"data2"};
+    [requesst setHTTPBody:[NSJSONSerialization dataWithJSONObject:dic options:kNilOptions error:nil]];
     
+    //添加请求头信息
+    [_webView  loadRequest:requesst];
+    
+     /*NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.2.134:8018/Home/Page1"]];
+    [requesst setHTTPMethod:@"POST"];
+    NSDictionary *dic = @{@"data1":@"data1",@"data2":@"data2"};
+    [requesst setHTTPBody:[NSJSONSerialization dataWithJSONObject:dic options:kNilOptions error:nil]];
     UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     webView.delegate = self;
     [webView loadRequest:requesst];
@@ -47,8 +56,12 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     //拦截到js的调用参数
+    
+    NSString *bodyStr =   [[NSString  alloc] initWithData:webView.request.HTTPBody encoding:NSUTF8StringEncoding];
+    NSLog(@"bodyStr = %@",bodyStr);
+    
     _context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];  //获取js上下文
-    //iOS吊起JS函数
+    //OC吊起JS函数
     [_context evaluateScript:@"alert('I AM A SEXY GUY!')"];
     //拦截js的调用函数
     _context[@"function1"] = ^ (NSString *param1,NSString *param2) {
@@ -96,23 +109,41 @@
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSString *bodyStr =   [[NSString  alloc] initWithData:navigationAction.request.HTTPBody encoding:NSUTF8StringEncoding];
+    NSLog(@"bodyStr = %@",bodyStr);
+
+    for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies
+                                   ]) {
+        NSLog(@"cookieValue = %@",cookie.value);
+    }
     NSMutableURLRequest *mutableRequest = [navigationAction.request mutableCopy];
     NSString *urlStr = mutableRequest.URL.absoluteString;
     NSLog(@"requestURL = %@",urlStr);
     NSDictionary *requestHeaders = navigationAction.request.allHTTPHeaderFields;
-    if (requestHeaders[@"Chan111"] && requestHeaders[@"Chan222"]) {
+    /*if (requestHeaders[@"Chan111"] && requestHeaders[@"Chan222"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         [mutableRequest addValue:@"Chan111" forHTTPHeaderField:@"Chan111"];
         [mutableRequest addValue:@"Chan222" forHTTPHeaderField:@"Chan222"];
         [webView loadRequest:mutableRequest];
         decisionHandler(WKNavigationActionPolicyAllow);
+    }*/
+    if ([navigationAction.request.HTTPMethod isEqualToString:@"GET"]) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else {
+        //POST
+        NSString*url = navigationAction.request.URL.absoluteString;
+        NSString *newUrl =  [url stringByReplacingOccurrencesOfString:@"http" withString:@"POST"];
+        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:newUrl]];
+        postRequest.HTTPBody = [@"Chan" dataUsingEncoding:NSUTF8StringEncoding];
+        [webView loadRequest:postRequest];
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     id body  = message.body;
-    //获取body信息
+    //获取body信息window.webkit.messageHandlers.showSendMsg.postMessage([$("#Username1").val(), $("#Password1").val()]);
     if ([message.name rangeOfString:@"showSendMsg"].length) {
         UIAlertAction *aciton = [UIAlertAction actionWithTitle:@"ok" style:0 handler:^(UIAlertAction * _Nonnull action) {
         }];
