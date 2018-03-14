@@ -11,6 +11,7 @@
 #import <WebKit/WKScriptMessageHandler.h>
 #import "XLWeakScriptMessageDelegate.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "WkWebViewURLProtocol.h"
 
 @interface ViewController () <WKUIDelegate,WKNavigationDelegate,WKScriptMessageHandler,UIWebViewDelegate> {
     WKWebView *_webView;
@@ -27,27 +28,29 @@
     
     [super viewDidLoad];
     //webView初始化
+    [NSURLProtocol registerClass:[WkWebViewURLProtocol class]];
+    
+    Class cls = NSClassFromString(@"WKBrowsingContextController");
+    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+    if ([(id)cls respondsToSelector:sel]) {
+        // 注册http(s) scheme, 把 http和https请求交给 NSURLProtocol处理
+        [(id)cls performSelector:sel withObject:@"http"];
+        [(id)cls performSelector:sel withObject:@"https"];
+    }
+    
     _configuration = [WKWebViewConfiguration new];
-    //注册信息
     [_configuration.userContentController addScriptMessageHandler:[[XLWeakScriptMessageDelegate alloc]initWithDelegate:self] name:@"showSendMsg"];
-    //初始化UI
     _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) configuration:_configuration];
     _webView.UIDelegate = self;
     _webView.navigationDelegate = self;
     [self.view addSubview:_webView];
-    //加载网页
-    NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
-    requesst.HTTPMethod = @"GET";
-    NSDictionary *dic = @{@"data1":@"data1",@"data2":@"data2"};
-    [requesst setHTTPBody:[NSJSONSerialization dataWithJSONObject:dic options:kNilOptions error:nil]];
-    
-    //添加请求头信息
+    NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.2.134:8018/Home/Page1"]];;
     [_webView  loadRequest:requesst];
     
-     /*NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.2.134:8018/Home/Page1"]];
-    [requesst setHTTPMethod:@"POST"];
-    NSDictionary *dic = @{@"data1":@"data1",@"data2":@"data2"};
-    [requesst setHTTPBody:[NSJSONSerialization dataWithJSONObject:dic options:kNilOptions error:nil]];
+    /* NSMutableURLRequest *requesst = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.2.134:8018/Home/Page1"]];
+//    [requesst setHTTPMethod:@"POST"];
+//    NSDictionary *dic = @{@"data1":@"data1",@"data2":@"data2"};
+//    [requesst setHTTPBody:[NSJSONSerialization dataWithJSONObject:dic options:kNilOptions error:nil]];
     UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     webView.delegate = self;
     [webView loadRequest:requesst];
@@ -56,7 +59,6 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     //拦截到js的调用参数
-    
     NSString *bodyStr =   [[NSString  alloc] initWithData:webView.request.HTTPBody encoding:NSUTF8StringEncoding];
     NSLog(@"bodyStr = %@",bodyStr);
     
@@ -82,28 +84,6 @@
     [_context evaluateScript:@"function2('Chan1111','Chan2222')"];
 }
 
-- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
-    NSLog(@"message = %@",message);
-    completionHandler();
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:message message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    }];
-    [alertVC addAction:action];
-    [self presentViewController:alertVC animated:YES completion:nil];
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSString *urlStr = request.URL.absoluteString;
-    if ([urlStr rangeOfString:@"ios:gotoLogin"].length) {
-        //跳转登录
-    }
-    //提交表单
-    if (navigationType == UIWebViewNavigationTypeFormSubmitted) {
-        return YES;
-    }
-    return YES;
-}
-
 -(void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
@@ -112,11 +92,7 @@
     //针对wkwebView的请求体被清空的问题 现在目前为止还没寻求到解决方案，待解决.在UIwebView中请求体中的信息在进行post请求的时候是不会被丢失的
     NSString *bodyStr =   [[NSString  alloc] initWithData:navigationAction.request.HTTPBody encoding:NSUTF8StringEncoding];
     NSLog(@"bodyStr = %@",bodyStr);
-
-    for (NSHTTPCookie *cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies
-                                   ]) {
-        NSLog(@"cookieValue = %@",cookie.value);
-    }
+    
     NSMutableURLRequest *mutableRequest = [navigationAction.request mutableCopy];
     NSString *urlStr = mutableRequest.URL.absoluteString;
     NSLog(@"requestURL = %@",urlStr);
@@ -133,11 +109,11 @@
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         //POST
-        NSString*url = navigationAction.request.URL.absoluteString;
+        /*NSString*url = navigationAction.request.URL.absoluteString;
         NSString *newUrl =  [url stringByReplacingOccurrencesOfString:@"http" withString:@"POST"];
         NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:newUrl]];
         postRequest.HTTPBody = [@"Chan" dataUsingEncoding:NSUTF8StringEncoding];
-        [webView loadRequest:postRequest];
+        [webView loadRequest:postRequest];*/
         decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
@@ -183,5 +159,6 @@
 
 - (void)dealloc {
     [_configuration.userContentController removeScriptMessageHandlerForName:@"showSendMsg"];
+    [NSURLProtocol unregisterClass:[WkWebViewURLProtocol class]];
 }
 @end

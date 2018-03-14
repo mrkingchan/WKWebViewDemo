@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+
+#import "WkWebViewURLProtocol.h"
+
 #import "URLProtocol.h"
 
 @interface AppDelegate ()
@@ -17,12 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [NSURLProtocol registerClass:[URLProtocol class]]; //拦截网络请求
-    /*NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-                           }];*/
+    
     return YES;
 }
 

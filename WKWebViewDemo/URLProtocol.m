@@ -29,9 +29,6 @@
         } else {
             return YES;
         }
-    } else if ([schme isEqualToString:@"POST"]) {
-        //POST请求
-        return YES;
     }
     return YES;
 }
@@ -47,7 +44,8 @@
         _task = [_session dataTaskWithRequest:request];
         [_task resume];
     } else {
-        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+        [_connection start];
     }
 }
 
@@ -127,6 +125,18 @@
     }
 }
 
-
-
+- (instancetype)initWithRequest:(NSURLRequest *)request cachedResponse:(NSCachedURLResponse *)cachedResponse client:(id<NSURLProtocolClient>)client {
+    NSMutableURLRequest*    redirectRequest;
+    redirectRequest = [request mutableCopy];
+    NSLog(@"拦截的请求:%@",request.URL.absoluteString);
+    NSString *bodyStr = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
+    NSLog(@"bodyStr = %@",bodyStr);
+    
+    self = [super initWithRequest:redirectRequest cachedResponse:cachedResponse client:client];
+    if (self) {
+        
+        // Some stuff
+    }
+    return self;
+}
 @end

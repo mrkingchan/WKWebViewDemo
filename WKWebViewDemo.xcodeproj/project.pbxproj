@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B3A7ADA2058B4DA002E59DA /* WkWebViewURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B3A7AD92058B4DA002E59DA /* WkWebViewURLProtocol.m */; };
 		8FC2A0842047EA1300B36725 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0832047EA1300B36725 /* AppDelegate.m */; };
 		8FC2A0872047EA1400B36725 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2A0862047EA1400B36725 /* ViewController.m */; };
 		8FC2A08A2047EA1400B36725 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FC2A0882047EA1400B36725 /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B3A7AD82058B4DA002E59DA /* WkWebViewURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WkWebViewURLProtocol.h; sourceTree = "<group>"; };
+		4B3A7AD92058B4DA002E59DA /* WkWebViewURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WkWebViewURLProtocol.m; sourceTree = "<group>"; };
 		8FC2A07F2047EA1300B36725 /* WKWebViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WKWebViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC2A0822047EA1300B36725 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8FC2A0832047EA1300B36725 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -112,8 +115,8 @@
 				8FC2A0832047EA1300B36725 /* AppDelegate.m */,
 				8FC2A0852047EA1300B36725 /* ViewController.h */,
 				8FC2A0862047EA1400B36725 /* ViewController.m */,
-				8FC2A0C7204D471300B36725 /* URLProtocol.h */,
-				8FC2A0C8204D471300B36725 /* URLProtocol.m */,
+				4B3A7AD82058B4DA002E59DA /* WkWebViewURLProtocol.h */,
+				4B3A7AD92058B4DA002E59DA /* WkWebViewURLProtocol.m */,
 				8FC2A0C6204D16CA00B36725 /* PrefixHeader.pch */,
 				8FC2A0882047EA1400B36725 /* Main.storyboard */,
 				8FC2A08B2047EA1400B36725 /* Assets.xcassets */,
@@ -122,6 +125,8 @@
 				8FC2A0912047EA1400B36725 /* main.m */,
 				8FC2A0BA20492D1400B36725 /* XLWeakScriptMessageDelegate.h */,
 				8FC2A0BB20492D1400B36725 /* XLWeakScriptMessageDelegate.m */,
+				8FC2A0C7204D471300B36725 /* URLProtocol.h */,
+				8FC2A0C8204D471300B36725 /* URLProtocol.m */,
 			);
 			path = WKWebViewDemo;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				8FC2A0BC20492D1400B36725 /* XLWeakScriptMessageDelegate.m in Sources */,
 				8FC2A0922047EA1400B36725 /* main.m in Sources */,
 				8FC2A0842047EA1300B36725 /* AppDelegate.m in Sources */,
+				4B3A7ADA2058B4DA002E59DA /* WkWebViewURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
